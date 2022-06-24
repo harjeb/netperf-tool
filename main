@@ -26,7 +26,7 @@ import socket
 import os
 from tool_ui import CheckableComboBox
 import logging
-
+from util import cmd
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -98,7 +98,6 @@ class Get_IP(QThread):
     def run(self):
         first_ip = 'Null'
         try:
-            from util import cmd
             r,ip = cmd('hostname -I')
             first_ip = ip.split(' ')[0]
         except:
