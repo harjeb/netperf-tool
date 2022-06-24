@@ -38,7 +38,7 @@ class Ui_Form(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label_4 = QtWidgets.QLabel(self.frame)
-        self.label_4.setMinimumSize(QtCore.QSize(120, 0))
+        self.label_4.setMinimumSize(QtCore.QSize(140, 0))
         self.label_4.setObjectName("label_4")
         self.verticalLayout_2.addWidget(self.label_4)
         self.radioButton = QtWidgets.QRadioButton(self.frame)
