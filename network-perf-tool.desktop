@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Utility;
+Exec=/usr/bin/net-perf-tool
+Icon=/usr/share/icons/hicolor/scalable/apps/network-perf-tool.png
+Name=网络性能测试工具
+Terminal=false
+Type=Application
+X-Deepin-Vendor=user-custom

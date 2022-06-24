@@ -1,7 +1,0 @@
-[Desktop Entry]
-Categories=Utility;
-Exec=/usr/bin/uos_npt
-Name=network-perf-tool
-Terminal=false
-Type=Application
-X-Deepin-Vendor=user-custom
