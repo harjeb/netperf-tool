@@ -1,0 +1,6 @@
+main /usr/lib/npt-uos/
+tool_ui.py /usr/lib/npt-uos/
+perf_tool.py /usr/lib/npt-uos/
+util.py /usr/lib/npt-uos/
+network-perf-tool.png /usr/share/icons/hicolor/scalable/apps/
+network-perf-tool.desktop /usr/share/applications/

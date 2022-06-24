@@ -1,0 +1,925 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: net-perf-tool
+Source: <url://example.com>
+#
+# Please double check copyright with the licensecheck(1) command.
+
+Files:     main.py
+           network_perf_tool.desktop
+           perf_tool.py
+           requirements.txt
+           tool_ui.py
+           tools/netperf-2.7.1/netperf-master/.gitignore
+           tools/netperf-2.7.1/netperf-master/AUTHORS
+           tools/netperf-2.7.1/netperf-master/Makefile.am
+           tools/netperf-2.7.1/netperf-master/NEWS
+           tools/netperf-2.7.1/netperf-master/README
+           tools/netperf-2.7.1/netperf-master/README.aix
+           tools/netperf-2.7.1/netperf-master/README.hpux
+           tools/netperf-2.7.1/netperf-master/README.osx
+           tools/netperf-2.7.1/netperf-master/README.ovms
+           tools/netperf-2.7.1/netperf-master/README.solaris
+           tools/netperf-2.7.1/netperf-master/README.vmware
+           tools/netperf-2.7.1/netperf-master/README.windows
+           tools/netperf-2.7.1/netperf-master/Release_Notes
+           tools/netperf-2.7.1/netperf-master/autogen.sh
+           tools/netperf-2.7.1/netperf-master/autom4te.cache/requests
+           tools/netperf-2.7.1/netperf-master/autom4te.cache/traces.0
+           tools/netperf-2.7.1/netperf-master/autom4te.cache/traces.1
+           tools/netperf-2.7.1/netperf-master/config.h
+           tools/netperf-2.7.1/netperf-master/config.h.in
+           tools/netperf-2.7.1/netperf-master/configure.ac
+           tools/netperf-2.7.1/netperf-master/doc/Makefile.am
+           tools/netperf-2.7.1/netperf-master/doc/examples/Makefile.am
+           tools/netperf-2.7.1/netperf-master/doc/examples/arr_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/bloat.py
+           tools/netperf-2.7.1/netperf-master/doc/examples/bloat.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/find_max_burst.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/mins_maxes.awk
+           tools/netperf-2.7.1/netperf-master/doc/examples/netperf_by_flavor.py
+           tools/netperf-2.7.1/netperf-master/doc/examples/netperf_by_quantum.py
+           tools/netperf-2.7.1/netperf-master/doc/examples/netperf_interim_to_rrd.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/packet_byte_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/parse_single_stream.py
+           tools/netperf-2.7.1/netperf-master/doc/examples/post_proc.py
+           tools/netperf-2.7.1/netperf-master/doc/examples/post_proc.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/remote_hosts
+           tools/netperf-2.7.1/netperf-master/doc/examples/runemomni.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/runemomniagg2.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/runemomniaggdemo.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/runremomniaggdemo.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/runremrandomniaggdemo.py
+           tools/netperf-2.7.1/netperf-master/doc/examples/runremrandomniaggdemo.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/sctp_stream_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/set_affinity.sh
+           tools/netperf-2.7.1/netperf-master/doc/examples/snapshot_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/tcp_range_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/tcp_rr_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/tcp_stream_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/udp_rr_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/udp_stream_script
+           tools/netperf-2.7.1/netperf-master/doc/examples/vrules.awk
+           tools/netperf-2.7.1/netperf-master/doc/netperf.man
+           tools/netperf-2.7.1/netperf-master/doc/netperf.pdf
+           tools/netperf-2.7.1/netperf-master/doc/netperf.ps
+           tools/netperf-2.7.1/netperf-master/doc/netserver.man
+           tools/netperf-2.7.1/netperf-master/doc/omni_output_list.txt
+           tools/netperf-2.7.1/netperf-master/inet_ntop.c
+           tools/netperf-2.7.1/netperf-master/m4/m4/sockaddrin6.m4
+           tools/netperf-2.7.1/netperf-master/m4/m4/sockinttypes.m4
+           tools/netperf-2.7.1/netperf-master/mkinstalldirs
+           tools/netperf-2.7.1/netperf-master/netperf.spec
+           tools/netperf-2.7.1/netperf-master/netperf.spec.in
+           tools/netperf-2.7.1/netperf-master/readme.txt
+           tools/netperf-2.7.1/netperf-master/src/.deps/dscp.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/net_uuid.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/netcpu_procstat.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/netlib.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/netperf.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/netserver.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/netsh.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/nettest_bsd.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/nettest_dlpi.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/nettest_omni.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/nettest_sctp.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/nettest_sdp.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/nettest_unix.Po
+           tools/netperf-2.7.1/netperf-master/src/.deps/nettest_xti.Po
+           tools/netperf-2.7.1/netperf-master/src/Makefile.am
+           tools/netperf-2.7.1/netperf-master/src/NetPerfDir/inet_ntop.c
+           tools/netperf-2.7.1/netperf-master/src/NetPerfDir/makefile
+           tools/netperf-2.7.1/netperf-master/src/NetPerfDir/sources
+           tools/netperf-2.7.1/netperf-master/src/NetServerDir/inet_ntop.c
+           tools/netperf-2.7.1/netperf-master/src/NetServerDir/makefile
+           tools/netperf-2.7.1/netperf-master/src/NetServerDir/sources
+           tools/netperf-2.7.1/netperf-master/src/dirs
+           tools/netperf-2.7.1/netperf-master/src/dscp.o
+           tools/netperf-2.7.1/netperf-master/src/hist.h
+           tools/netperf-2.7.1/netperf-master/src/missing/.deps/getaddrinfo.Po
+           tools/netperf-2.7.1/netperf-master/src/missing/.deps/inet_ntop.Po
+           tools/netperf-2.7.1/netperf-master/src/missing/Makefile.am
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/Makefile.am
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/herrno.m4
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/in6addr.m4
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/sockaddrin6.m4
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/sockinttypes.m4
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/type_socklen_t.m4
+           tools/netperf-2.7.1/netperf-master/src/missing/stdint.h
+           tools/netperf-2.7.1/netperf-master/src/net_uuid.o
+           tools/netperf-2.7.1/netperf-master/src/netcpu.h
+           tools/netperf-2.7.1/netperf-master/src/netcpu_kstat.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_kstat10.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_looper.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_none.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_ntperf.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_osx.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_perfstat.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_procstat.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_procstat.o
+           tools/netperf-2.7.1/netperf-master/src/netcpu_pstat.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_pstatnew.c
+           tools/netperf-2.7.1/netperf-master/src/netcpu_sysctl.c
+           tools/netperf-2.7.1/netperf-master/src/netdrv_ethtool.c
+           tools/netperf-2.7.1/netperf-master/src/netdrv_none.c
+           tools/netperf-2.7.1/netperf-master/src/netdrv_solaris.c
+           tools/netperf-2.7.1/netperf-master/src/netfirewall_linux.c
+           tools/netperf-2.7.1/netperf-master/src/netfirewall_none.c
+           tools/netperf-2.7.1/netperf-master/src/netlib.o
+           tools/netperf-2.7.1/netperf-master/src/netperf
+           tools/netperf-2.7.1/netperf-master/src/netperf.o
+           tools/netperf-2.7.1/netperf-master/src/netperf_version.h
+           tools/netperf-2.7.1/netperf-master/src/netperf_version.h.in
+           tools/netperf-2.7.1/netperf-master/src/netrt_none.c
+           tools/netperf-2.7.1/netperf-master/src/netrt_rtmget.c
+           tools/netperf-2.7.1/netperf-master/src/netrt_rtnetlink.c
+           tools/netperf-2.7.1/netperf-master/src/netsec_linux.c
+           tools/netperf-2.7.1/netperf-master/src/netsec_none.c
+           tools/netperf-2.7.1/netperf-master/src/netsec_win.c
+           tools/netperf-2.7.1/netperf-master/src/netserver
+           tools/netperf-2.7.1/netperf-master/src/netserver.o
+           tools/netperf-2.7.1/netperf-master/src/netsh.c
+           tools/netperf-2.7.1/netperf-master/src/netsh.o
+           tools/netperf-2.7.1/netperf-master/src/netslot_linux.c
+           tools/netperf-2.7.1/netperf-master/src/netslot_none.c
+           tools/netperf-2.7.1/netperf-master/src/netslot_solaris.c
+           tools/netperf-2.7.1/netperf-master/src/netsys_hpux11i.c
+           tools/netperf-2.7.1/netperf-master/src/netsys_linux.c
+           tools/netperf-2.7.1/netperf-master/src/netsys_none.c
+           tools/netperf-2.7.1/netperf-master/src/netsys_solaris.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_bsd.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_bsd.o
+           tools/netperf-2.7.1/netperf-master/src/nettest_dlpi.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_dlpi.o
+           tools/netperf-2.7.1/netperf-master/src/nettest_omni.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_omni.o
+           tools/netperf-2.7.1/netperf-master/src/nettest_sctp.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_sctp.o
+           tools/netperf-2.7.1/netperf-master/src/nettest_sdp.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_sdp.o
+           tools/netperf-2.7.1/netperf-master/src/nettest_unix.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_unix.o
+           tools/netperf-2.7.1/netperf-master/src/nettest_xti.c
+           tools/netperf-2.7.1/netperf-master/src/nettest_xti.o
+           tools/netperf-2.7.1/netperf-master/stamp-h1
+           util.py
+Copyright: __NO_COPYRIGHT_NOR_LICENSE__
+License:   __NO_COPYRIGHT_NOR_LICENSE__
+
+Files:     tools/netperf-2.7.1/netperf-master/Makefile.in
+           tools/netperf-2.7.1/netperf-master/doc/Makefile.in
+           tools/netperf-2.7.1/netperf-master/doc/examples/Makefile.in
+           tools/netperf-2.7.1/netperf-master/src/Makefile.in
+           tools/netperf-2.7.1/netperf-master/src/missing/Makefile.in
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/Makefile.in
+Copyright: 1994-2018 Free Software Foundation, Inc.
+License:   __AUTO_PERMISSIVE__
+ Autogenerated files with permissive licenses.
+
+Files:     tools/netperf-2.7.1/netperf-master/Makefile
+           tools/netperf-2.7.1/netperf-master/doc/examples/Makefile
+           tools/netperf-2.7.1/netperf-master/src/Makefile
+           tools/netperf-2.7.1/netperf-master/src/missing/Makefile
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/Makefile
+Copyright: 1994-2018 Free Software Foundation, Inc.
+License:   PERMISSIVE
+ This Makefile.in is free software; the Free Software Foundation
+ gives unlimited permission to copy and/or distribute it,
+ with or without modifications, as long as this notice is preserved.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+ even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ PARTICULAR PURPOSE.
+
+Files:     tools/netperf-2.7.1/netperf-master/autom4te.cache/output.0
+           tools/netperf-2.7.1/netperf-master/autom4te.cache/output.1
+           tools/netperf-2.7.1/netperf-master/configure
+Copyright: 1992-2012 Free Software Foundation, Inc.
+License:   PERMISSIVE
+ This configure script is free software; the Free Software Foundation
+ gives unlimited permission to copy, distribute and modify it.
+
+Files:     tools/netperf-2.7.1/netperf-master/src/nettest_bsd.h
+           tools/netperf-2.7.1/netperf-master/src/nettest_sctp.h
+           tools/netperf-2.7.1/netperf-master/src/nettest_xti.h
+Copyright: 1993-2012 Hewlett-Packard Company
+License:   __UNKNOWN__
+ This file contains the test-specific definitions for netperf's BSD
+ sockets tests
+
+Files:     tools/netperf-2.7.1/netperf-master/src/netlib.c
+           tools/netperf-2.7.1/netperf-master/src/netlib.h
+           tools/netperf-2.7.1/netperf-master/src/netslot_ux1131.c
+Copyright: 1993-2012 Hewlett-Packard Company
+           that is much the same as that for the original HP netperf code
+License:   __NO_LICENSE__
+
+Files:     tools/netperf-2.7.1/netperf-master/src/netperf.c
+           tools/netperf-2.7.1/netperf-master/src/netserver.c
+Copyright: 1993-2012 Hewlett-Packard Company
+License:   __UNKNOWN__
+ The enclosed software and documentation includes copyrighted works
+ of Hewlett-Packard Co. For as long as you comply with the following
+ limitations, you are hereby authorized to (i) use, reproduce, and
+ modify the software and documentation, and to (ii) distribute the
+ software and documentation, including modifications, for
+ non-commercial purposes only.
+ .
+ 1.  The enclosed software and documentation is made available at no
+ charge in order to advance the general development of
+ high-performance networking products.
+ .
+ 2.  You may not delete any copyright notices contained in the
+ software or documentation. All hard copies, and copies in
+ source code or object code form, of the software or
+ documentation (including modifications) must contain at least
+ one of the copyright notices.
+ .
+ 3.  The enclosed software and documentation has not been subjected
+ to testing and quality control and is not a Hewlett-Packard Co.
+ product. At a future time, Hewlett-Packard Co. may or may not
+ offer a version of the software and documentation as a product.
+ .
+ 4.  THE SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS".
+ HEWLETT-PACKARD COMPANY DOES NOT WARRANT THAT THE USE,
+ REPRODUCTION, MODIFICATION OR DISTRIBUTION OF THE SOFTWARE OR
+ DOCUMENTATION WILL NOT INFRINGE A THIRD PARTY'S INTELLECTUAL
+ PROPERTY RIGHTS. HP DOES NOT WARRANT THAT THE SOFTWARE OR
+ DOCUMENTATION IS ERROR FREE. HP DISCLAIMS ALL WARRANTIES,
+ EXPRESS AND IMPLIED, WITH REGARD TO THE SOFTWARE AND THE
+ DOCUMENTATION. HP SPECIFICALLY DISCLAIMS ALL WARRANTIES OF
+ MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ .
+ 5.  HEWLETT-PACKARD COMPANY WILL NOT IN ANY EVENT BE LIABLE FOR ANY
+ DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES
+ (INCLUDING LOST PROFITS) RELATED TO ANY USE, REPRODUCTION,
+ MODIFICATION, OR DISTRIBUTION OF THE SOFTWARE OR DOCUMENTATION.
+
+Files:     tools/netperf-2.7.1/netperf-master/src/nettest_dlpi.h
+           tools/netperf-2.7.1/netperf-master/src/nettest_unix.h
+Copyright: 1993-2004 Hewlett-Packard Company
+License:   __UNKNOWN__
+ This file contains the test-specific definitions for netperf's
+ DLPI tests
+
+Files:     tools/netperf-2.7.1/netperf-master/acinclude.m4
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/socklent.m4
+Copyright: 1996-2005 Daniel Stenberg, <daniel@haxx.se>.
+License:   __UNKNOWN__
+ Permission to use, copy, modify, and distribute this software for any purpose
+ with or without fee is hereby granted, provided that the above copyright
+ notice and this permission notice appear in all copies.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN
+ NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ OR OTHER DEALINGS IN THE SOFTWARE.
+ .
+ Except as contained in this notice, the name of a copyright holder shall not
+ be used in advertising or otherwise to promote the sale, use or other dealings
+ in this Software without prior written authorization of the copyright holder.
+
+Files:     tools/netperf-2.7.1/netperf-master/m4/m4/salen.m4
+           tools/netperf-2.7.1/netperf-master/src/missing/m4/salen.m4
+Copyright: __NO_COPYRIGHT__ in: tools/netperf-2.7.1/netperf-master/m4/m4/salen.m4
+           __NO_COPYRIGHT__ in: tools/netperf-2.7.1/netperf-master/src/missing/m4/salen.m4
+License:   __UNKNOWN__
+ dnl THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR IMPLIED
+ dnl WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+ dnl MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ dnl
+ dnl LBL autoconf macros
+ dnl
+
+Files:     tools/netperf-2.7.1/netperf-master/install-sh
+Copyright: 1994 X Consortium
+License:   MIT
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to
+ deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNEC-
+ TION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ .
+ Except as contained in this notice, the name of the X Consortium shall not
+ be used in advertising or otherwise to promote the sale, use or other deal-
+ ings in this Software without prior written authorization from the X Consor-
+ tium.
+ .
+ FSF changes to this file are in the public domain.
+ .
+ Calling this script install-sh is preferred over install.sh, to prevent
+ `make' implicit rules from creating a file called install from it
+ when there is no Makefile.
+ .
+ This script is compatible with the BSD install script, but was written
+ from scratch.
+
+Files:     tools/netperf-2.7.1/netperf-master/doc/texinfo.tex
+Copyright: 1985-2003 Free Software Foundation, Inc.
+License:   GPL-2.0+
+ This texinfo.tex file is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2, or (at
+ your option) any later version.
+ .
+ This texinfo.tex file is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this texinfo.tex file; see the file COPYING.  If not, write
+ to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.
+ .
+ In other words, you are welcome to use, share and improve this program.
+ You are forbidden to forbid anyone else to use, share and improve
+ what you give them.   Help stamp out software-hoarding!
+ .
+ The FSF address in the above text is the old one.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+Files:     tools/netperf-2.7.1/netperf-master/doc/Makefile
+Copyright: 1994-2018 Free Software Foundation, Inc.
+License:   PERMISSIVE
+ This Makefile.in is free software; the Free Software Foundation
+ gives unlimited permission to copy and/or distribute it,
+ with or without modifications, as long as this notice is preserved.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+ even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ PARTICULAR PURPOSE.
+ .
+ what is your philosophy - distribute pre-made .pdf et al in a make dist
+
+Files:     tools/netperf-2.7.1/netperf-master/aclocal.m4
+Copyright: 1996-2018 Free Software Foundation, Inc.
+License:   PERMISSIVE
+ This file is free software; the Free Software Foundation
+ gives unlimited permission to copy and/or distribute it,
+ with or without modifications, as long as this notice is preserved.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+ even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ PARTICULAR PURPOSE.
+
+Files:     tools/netperf-2.7.1/netperf-master/src/nettest_sdp.h
+Copyright: 2007 Hewlett-Packard Company
+License:   __UNKNOWN__
+ This file contains the test-specific definitions for netperf's SDP
+ sockets tests
+ .
+ one of these days, this should not be required
+
+Files:     tools/netperf-2.7.1/netperf-master/config.log
+Copyright: 2018 Free Software Foundation, Inc.
+License:   __UNKNOWN__
+ This is free software; see the source for copying conditions.  There is NO
+ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Files:     tools/netperf-2.7.1/netperf-master/config.status
+Copyright: 2012 Free Software Foundation, Inc.
+License:   __UNKNOWN__
+ This config.status script is free software; the Free Software Foundation
+ gives unlimited permission to copy, distribute and modify it."
+
+Files:     tools/netperf-2.7.1/netperf-master/src/netsh.h
+Copyright: 1993-2012 Hewlett-Packard Company
+License:   __UNKNOWN__
+ libraried performance include file
+ the define NOPERFEXTERN tels us not to re-define all the
+ .
+ defines and defaults
+
+Files:     tools/netperf-2.7.1/netperf-master/doc/netperf.info
+Copyright: 2005-2015 Hewlett-Packard Company
+License:   __UNKNOWN__
+ Permission is granted to copy, distribute and/or modify this
+ document per the terms of the netperf source license, a copy of
+ which can be found in the file `COPYING' of the basic netperf
+ distribution.
+ .
+ File: netperf.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
+ .
+ Netperf Manual
+ **************
+ .
+ This is Rick Jones' feeble attempt at a Texinfo-based manual for the
+ netperf benchmark.
+ .
+ Permission is granted to copy, distribute and/or modify this
+ document per the terms of the netperf source license, a copy of
+ which can be found in the file `COPYING' of the basic netperf
+ distribution.
+ .
+ * Menu:
+ .
+ * Introduction::                An introduction to netperf - what it
+ is and what it is not.
+ * Installing Netperf::          How to go about installing netperf.
+ * The Design of Netperf::
+ * Global Command-line Options::
+ * Using Netperf to Measure Bulk Data Transfer::
+ * Using Netperf to Measure Request/Response ::
+ * Using Netperf to Measure Aggregate Performance::
+ * Using Netperf to Measure Bidirectional Transfer::
+ * The Omni Tests::
+ * Other Netperf Tests::
+ * Address Resolution::
+ * Enhancing Netperf::
+ * Netperf4::
+ * Concept Index::
+ * Option Index::
+ .
+ File: netperf.info,  Node: Introduction,  Next: Installing Netperf,  Prev: Top,  Up: Top
+ .
+ 1 Introduction
+ **************
+ .
+ Netperf is a benchmark that can be use to measure various aspect of
+ networking performance.  The primary foci are bulk (aka unidirectional)
+ data transfer and request/response performance using either TCP or UDP
+ and the Berkeley Sockets interface.  As of this writing, the tests
+ available either unconditionally or conditionally include:
+ .
+ * TCP and UDP unidirectional transfer and request/response over IPv4
+ and IPv6 using the Sockets interface.
+ .
+ * TCP and UDP unidirectional transfer and request/response over IPv4
+ using the XTI interface.
+ .
+ * Link-level unidirectional transfer and request/response using the
+ DLPI interface.
+ .
+ * Unix domain sockets
+ .
+ * SCTP unidirectional transfer and request/response over IPv4 and
+ IPv6 using the sockets interface.
+ .
+ While not every revision of netperf will work on every platform
+ listed, the intention is that at least some version of netperf will
+ work on the following platforms:
+ .
+ * Unix - at least all the major variants.
+ .
+ * Linux
+ .
+ * Windows
+ .
+ * Others
+ .
+ Netperf is maintained and informally supported primarily by Rick
+ Jones, who can perhaps be best described as Netperf Contributing
+ Editor.  Non-trivial and very appreciated assistance comes from others
+ in the network performance community, who are too numerous to mention
+ here. While it is often used by them, netperf is NOT supported via any
+ of the formal Hewlett-Packard support channels.  You should feel free
+ to make enhancements and modifications to netperf to suit your
+ nefarious porpoises, so long as you stay within the guidelines of the
+ netperf copyright.  If you feel so inclined, you can send your changes
+ to netperf-feedback <netperf-feedback@netperf.org> for possible
+ inclusion into subsequent versions of netperf.
+ .
+ It is the Contributing Editor's belief that the netperf license walks
+ like open source and talks like open source. However, the license was
+ never submitted for "certification" as an open source license.  If you
+ would prefer to make contributions to a networking benchmark using a
+ certified open source license, please consider netperf4, which is
+ distributed under the terms of the GPLv2.
+ .
+ The netperf-talk <netperf-talk@netperf.org> mailing list is
+ available to discuss the care and feeding of netperf with others who
+ share your interest in network performance benchmarking. The
+ netperf-talk mailing list is a closed list (to deal with spam) and you
+ must first subscribe by sending email to netperf-talk-request
+ <netperf-talk-request@netperf.org>.
+ .
+ * Menu:
+ .
+ * Conventions::
+ .
+ File: netperf.info,  Node: Conventions,  Prev: Introduction,  Up: Introduction
+ .
+ 1.1 Conventions
+
+Files:     tools/netperf-2.7.1/netperf-master/src/Makefile.uw
+Copyright: 2008 Hewlett-Packard Company.
+           2008 VMware, Inc.
+License:   __UNKNOWN__
+ Assume we're building in a DDK universe.
+
+Files:     tools/netperf-2.7.1/netperf-master/doc/netperf.texi
+Copyright: __NO_COPYRIGHT__ in: tools/netperf-2.7.1/netperf-master/doc/netperf.texi
+License:   __UNKNOWN__
+ Permission is granted to copy, distribute and/or modify this document
+ per the terms of the netperf source license, a copy of which can be
+ found in the file @file{COPYING} of the basic netperf distribution.
+
+Files:     tools/netperf-2.7.1/netperf-master/doc/netperf.txt
+Copyright: 2005-2012 Hewlett-Packard Company
+License:   __UNKNOWN__
+ Permission is granted to copy, distribute and/or modify this
+ document per the terms of the netperf source license, a copy of
+ which can be found in the file `COPYING' of the basic netperf
+ distribution.
+ .
+ 1 Introduction
+ **************
+ .
+ Netperf is a benchmark that can be use to measure various aspect of
+ networking performance.  The primary foci are bulk (aka unidirectional)
+ data transfer and request/response performance using either TCP or UDP
+ and the Berkeley Sockets interface.  As of this writing, the tests
+ available either unconditionally or conditionally include:
+ .
+ * TCP and UDP unidirectional transfer and request/response over IPv4
+ and IPv6 using the Sockets interface.
+ .
+ * TCP and UDP unidirectional transfer and request/response over IPv4
+ using the XTI interface.
+ .
+ * Link-level unidirectional transfer and request/response using the
+ DLPI interface.
+ .
+ * Unix domain sockets
+ .
+ * SCTP unidirectional transfer and request/response over IPv4 and
+ IPv6 using the sockets interface.
+ .
+ While not every revision of netperf will work on every platform
+ listed, the intention is that at least some version of netperf will
+ work on the following platforms:
+ .
+ * Unix - at least all the major variants.
+ .
+ * Linux
+ .
+ * Windows
+ .
+ * Others
+ .
+ Netperf is maintained and informally supported primarily by Rick
+ Jones, who can perhaps be best described as Netperf Contributing
+ Editor.  Non-trivial and very appreciated assistance comes from others
+ in the network performance community, who are too numerous to mention
+ here. While it is often used by them, netperf is NOT supported via any
+ of the formal Hewlett-Packard support channels.  You should feel free
+ to make enhancements and modifications to netperf to suit your
+ nefarious porpoises, so long as you stay within the guidelines of the
+ netperf copyright.  If you feel so inclined, you can send your changes
+ to netperf-feedback <netperf-feedback@netperf.org> for possible
+ inclusion into subsequent versions of netperf.
+ .
+ It is the Contributing Editor's belief that the netperf license walks
+ like open source and talks like open source. However, the license was
+ never submitted for "certification" as an open source license.  If you
+ would prefer to make contributions to a networking benchmark using a
+ certified open source license, please consider netperf4, which is
+ distributed under the terms of the GPLv2.
+ .
+ The netperf-talk <netperf-talk@netperf.org> mailing list is
+ available to discuss the care and feeding of netperf with others who
+ share your interest in network performance benchmarking. The
+ netperf-talk mailing list is a closed list (to deal with spam) and you
+ must first subscribe by sending email to netperf-talk-request
+ <netperf-talk-request@netperf.org>.
+ .
+ 1.1 Conventions
+
+Files:     tools/netperf-2.7.1/netperf-master/src/net_uuid.c
+Copyright: 1989 Hewlett-Packard Company, Palo Alto, Ca. & Digital Equipment Corporation, Maynard, Mass.
+           1990-1996 Open Software Foundation, Inc.
+           1998 Microsoft.
+License:   __UNKNOWN__
+ To anyone who acknowledges that this file is provided "AS IS"
+ without any express or implied warranty: permission to use, copy,
+ modify, and distribute this file for any purpose is hereby
+ granted without fee, provided that the above copyright notices and
+ this notice appears in all source code copies, and that none of
+ the names of Open Software Foundation, Inc., Hewlett-Packard
+ Company, Microsoft, or Digital Equipment Corporation be used in
+ advertising or publicity pertaining to distribution of the software
+ without specific, written prior permission. Neither Open Software
+ Foundation, Inc., Hewlett-Packard Company, Microsoft, nor Digital
+ Equipment Corporation makes any representations about the
+ suitability of this software for any purpose.
+
+Files:     tools/netperf-2.7.1/netperf-master/INSTALL
+Copyright: 1994-2002 Free Software Foundation, Inc.
+License:   __UNKNOWN__
+ This file is free documentation; the Free Software Foundation gives
+ unlimited permission to copy, distribute and modify it.
+ .
+ Basic Installation
+
+Files:     tools/netperf-2.7.1/netperf-master/src/dscp.c
+Copyright: 2000 Markus Friedl.
+           2005-2006 Damien Miller.
+License:   BSD-2-Clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Files:     tools/netperf-2.7.1/netperf-master/src/missing/getaddrinfo.c
+Copyright: 2001-2002 Motoyuki Kasahara
+License:   BSD-3-Clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the project nor the names of its contributors
+ may be used to endorse or promote products derived from this software
+ without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED.  IN NO EVENT SHALL THE PROJECT OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+ .
+ This program provides getaddrinfo() and getnameinfo() described in
+ RFC2133, 2553 and 3493.  These functions are mainly used for IPv6
+ application to resolve hostname or address.
+ .
+ This program is designed to be working on traditional IPv4 systems
+ which don't have those functions.  Therefore, this implementation
+ supports IPv4 only.
+ .
+ This program is useful for application which should support both IPv6
+ and traditional IPv4 systems.  Use genuine getaddrinfo() and getnameinfo()
+ provided by system if the system supports IPv6.  Otherwise, use this
+ implementation.
+ .
+ This program is intended to be used in combination with GNU Autoconf.
+ .
+ On Debian systems, the complete text of the BSD 3-clause "New" or "Revised"
+ License can be found in `/usr/share/common-licenses/BSD'.
+
+Files:     tools/netperf-2.7.1/netperf-master/src/missing/getaddrinfo.h
+Copyright: 2001-2002 Motoyuki Kasahara
+License:   BSD-3-Clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the project nor the names of its contributors
+ may be used to endorse or promote products derived from this software
+ without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED.  IN NO EVENT SHALL THE PROJECT OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+ .
+ On Debian systems, the complete text of the BSD 3-clause "New" or "Revised"
+ License can be found in `/usr/share/common-licenses/BSD'.
+
+Files:     tools/netperf-2.7.1/netperf-master/src/missing/inttypes.h
+Copyright: 2006 Alexander Chemeris
+License:   BSD-3-Clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ 1. Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ .
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ .
+ 3. The name of the author may be used to endorse or promote products
+ derived from this software without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ .
+ On Debian systems, the complete text of the BSD 3-clause "New" or "Revised"
+ License can be found in `/usr/share/common-licenses/BSD'.
+
+Files:     tools/netperf-2.7.1/netperf-master/src/missing/inet_ntop.c
+Copyright: 1999 Kungliga Tekniska Högskolan (Royal Institute of Technology, Stockholm, Sweden).
+License:   BSD-4-Clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ .
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ .
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ .
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by the Kungliga Tekniska
+ Högskolan and its contributors.
+ .
+ 4. Neither the name of the Institute nor the names of its contributors
+ may be used to endorse or promote products derived from this software
+ without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+
+Files:     tools/netperf-2.7.1/netperf-master/depcomp
+Copyright: 1999-2003 Free Software Foundation, Inc.
+License:   GPL-2.0+ with autoconf exception
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2, or (at your option)
+ any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ 02111-1307, USA.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that program.
+ .
+ Originally written by Alexandre Oliva <oliva@dcc.unicamp.br>.
+ .
+ The FSF address in the above text is the old one.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+Files:     tools/netperf-2.7.1/netperf-master/config.sub
+Copyright: 1992-2005 Free Software Foundation, Inc.
+License:   GPL-2.0+ with autoconf exception
+ This file is (in principle) common to ALL GNU software.
+ The presence of a machine in this file suggests that SOME GNU software
+ can handle that machine.  It does not imply ALL GNU software can.
+ .
+ This file is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA
+ 02110-1301, USA.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that program.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+Files:     tools/netperf-2.7.1/netperf-master/missing
+Copyright: 1996-2003 Free Software Foundation, Inc.
+License:   GPL-2.0+ with autoconf exception
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2, or (at your option)
+ any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ 02111-1307, USA.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that program.
+ .
+ The FSF address in the above text is the old one.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+Files:     tools/netperf-2.7.1/netperf-master/config.guess
+Copyright: 1992-2005 Free Software Foundation, Inc.
+License:   GPL-2.0+ with autoconf exception
+ This file is free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA
+ 02110-1301, USA.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that program.
+ .
+ Originally written by Per Bothner <per@bothner.com>.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+#----------------------------------------------------------------------------
+# xml and html files (skipped):
+#         tools/netperf-2.7.1/netperf-master/doc/netperf.html
+#         tools/netperf-2.7.1/netperf-master/doc/netperf.xml
+
+#----------------------------------------------------------------------------
+# huge files   (skipped):
+#         tools/netperf-2.7.1.zip
+#         tools/netperf-2.7.1/netperf-master/doc/netperf_old.ps
+
+#----------------------------------------------------------------------------
+# Files marked as NO_LICENSE_TEXT_FOUND may be covered by the following
+# license/copyright files.

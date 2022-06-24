@@ -1,0 +1,606 @@
+#!/usr/bin/env python3
+import sys
+from perf_tool import *
+from PyQt5.QtWidgets import (QApplication,
+                            QWidget,
+                            QHBoxLayout,
+                            QGridLayout,
+                            QVBoxLayout,
+                            QScrollArea,
+                            QListView,
+                            QMessageBox,
+                            QListWidget,
+                            QListWidgetItem,
+                            QTextEdit,
+                            QSizePolicy,
+                            QLabel,
+                            QDialog,
+                            QInputDialog,
+                            QLineEdit)
+from PyQt5.QtCore import QStringListModel,QThread
+from PyQt5 import QtCore
+import time
+from io import StringIO
+import traceback
+import socket
+import os
+from tool_ui import CheckableComboBox
+import logging
+
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+homedir = os.environ['HOME']
+if not os.path.exists(homedir + '/.config/network_perf'):
+    os.makedirs(homedir + '/.config/network_perf')
+
+logname = homedir + '/.config/network_perf/npt.log'  # 指定输出的日志文件名
+
+fh = logging.FileHandler(logname, encoding='utf-8', mode='a')
+fh.setLevel(logging.INFO)
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# 定义handler的输出格式
+custom_format = '%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s: %(message)s'
+# formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s-%(message)s')
+formatter = logging.Formatter(custom_format)
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+
+def excepthook(excType, excValue, tracebackobj):
+    """
+    Global function to catch unhandled exceptions.
+    @param excType exception type
+    @param excValue exception value
+    @param tracebackobj traceback object
+    """
+    separator = '-' * 80
+    logFile = "error.log"
+    notice = \
+        """An unhandled exception occurred. Please report the problem\n"""\
+        """using the error reporting dialog or via email to <%s>.\n"""\
+        """A log has been written to "%s".\n\nError information:\n""" % \
+        ("harjeb@outlook.com", "")
+    versionInfo="0.0.1"
+    timeString = time.strftime("%Y-%m-%d, %H:%M:%S")
+    tbinfofile = StringIO()
+    traceback.print_tb(tracebackobj, None, tbinfofile)
+    tbinfofile.seek(0)
+    tbinfo = tbinfofile.read()
+    errmsg = '%s: \n%s' % (str(excType), str(excValue))
+    sections = [separator, timeString, separator, errmsg, separator, tbinfo]
+    msg = '\n'.join(sections)
+    try:
+        f = open(logFile, "w")
+        f.write(msg)
+        f.write(versionInfo)
+        f.close()
+    except IOError:
+        pass
+    errorbox = QMessageBox()
+    errorbox.setText(str(notice)+str(msg)+str(versionInfo))
+    errorbox.exec_()
+
+sys.excepthook = excepthook
+
+
+class Get_IP(QThread):
+    ip_info = QtCore.pyqtSignal(str)
+    def __init__(self):
+        super(Get_IP, self).__init__()
+
+    def run(self):
+        first_ip = 'Null'
+        try:
+            from util import cmd
+            r,ip = cmd('hostname -I')
+            first_ip = ip.split(' ')[0]
+        except:
+            pass
+        self.ip_info.emit(first_ip)
+
+class Check_continue(QThread):
+
+    end = QtCore.pyqtSignal(bool)
+    cmd = QtCore.pyqtSignal(str)
+    randerUI = QtCore.pyqtSignal(dict)
+    reboot_signal = QtCore.pyqtSignal(bool)
+
+    def __init__(self):
+        super(Check_continue, self).__init__()
+        self.homedir = os.environ['HOME']
+
+    def run(self):
+        # 判断是否重启后自动执行
+        true_cmd_file = self.homedir+'/.config/network_perf/wait_run_cmd'
+        if not os.path.exists(true_cmd_file):
+            self.wait()
+            self.quit()
+        logger.info('检测到待执行用例，开始...')
+        with open(true_cmd_file, 'r') as f1:
+            cmds = f1.readlines()
+
+        if len(cmds) > 1:
+            first_cmd = cmds[0]
+        elif len(cmds) == 1:
+            first_cmd = cmds[0]
+        else:
+            self.wait()
+            self.quit()
+        logger.info(first_cmd)
+
+        REBOOT = first_cmd.split('|')[0]
+        WAIT = first_cmd.split('|')[1]
+        CASE = first_cmd.split('|')[2]
+        self.TITLE = first_cmd.split('|')[3]
+        UI = {
+            "title" : self.TITLE,
+            "case" : CASE,
+            "reboot" : REBOOT,
+            "wait" : WAIT
+        }
+        logger.info('渲染UI')
+        self.randerUI.emit(UI)
+
+        logger.info('用例名: %s' % self.TITLE)
+        logger.info('步骤: %s' % CASE)
+        if REBOOT == '1':
+            self.nextreboot = True
+        else:
+            self.nextreboot = False
+        if WAIT == '1':
+            self._wait = True
+        else:
+            self._wait = False
+
+        if self._wait:
+            logger.info('静置300s')
+            self.sleep(300)
+            logger.info('执行ing...')
+            self.cmd.emit(CASE)
+        else:
+            logger.info('静置60s')
+            self.sleep(60)
+            logger.info('执行ing...')
+            self.cmd.emit(CASE)
+
+        if len(cmds) > 1:
+            with open(true_cmd_file,'w') as f2:
+                for c in cmds[1:]:
+                    logger.info(c)
+                    f2.write(c)
+
+            if self.nextreboot:
+                logger.info('发送重启信号')
+                self.reboot_signal.emit(True)
+                self.wait()
+                self.quit()
+            else:
+                logger.info('不需要重启，继续测试...')
+                self.run()
+        else:
+            try:
+                logger.info('执行完成！')
+                os.remove(true_cmd_file)
+                self.end.emit(True)
+            except OSError:
+                pass
+
+class Service_setup(QWidget, Ui_Form):
+
+    def __init__(self,parent=None):
+        super(Service_setup, self).__init__(parent)
+        self.setupUi(self)
+        #设置标题
+        self.setWindowTitle('网络性能测试工具')
+
+        self.thread_init = Get_IP()
+        self.thread_init.ip_info.connect(self.update_ipinfo)
+        self.thread_init.start()
+        self.server_ip = '0.0.0.0'
+        self.homedir = os.environ['HOME']
+        self.resultdir = self.homedir + '/network_perf_result'
+        if not os.path.exists(self.homedir + '/.config/network_perf'):
+            os.makedirs(self.homedir + '/.config/network_perf')
+        if not os.path.exists(self.resultdir):
+            os.makedirs(self.resultdir)
+        self.update_command_dict()
+
+        self.comboBox = CheckableComboBox(self.frame)
+        self.comboBox.setMinimumSize(QtCore.QSize(250, 0))
+        self.comboBox.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.comboBox.setObjectName("comboBox")
+        self.horizontalLayout_5.insertWidget(0,self.comboBox)
+        self.comboBox.addItems(list(self.command_dict.keys()))
+        self.pushButton.clicked.connect(self.setup_btn)
+        self.comboBox.model().dataChanged.connect(self.update)
+
+        self.radioButton.clicked.connect(self.update)
+        self.radioButton_2.clicked.connect(self.client_update)
+
+        self.process = QtCore.QProcess()
+        self.process.readyReadStandardError.connect(self.onReadyReadStandardError)
+        self.process.readyReadStandardOutput.connect(self.onReadyReadStandardOutput)
+        self.process.finished.connect(self.onFinished)
+        self.running = False
+        self.sys_combo_text = None
+        self.reboot_now = False
+
+        # self.checkBox.clicked.connect(self.rebootinit)
+        self.cases = ''
+        self.waittime = 300
+        self.thread_continue = Check_continue()
+        self.thread_continue.cmd.connect(self.run)
+        self.thread_continue.end.connect(self.all_finished)
+        self.thread_continue.randerUI.connect(self.initUI)
+        self.thread_continue.reboot_signal.connect(self.update_reboot_state)
+        self.thread_continue.start()
+        self.TITLE = ''
+        # self.continue_test()
+
+    def initUI(self,data):
+        self.pushButton.setDisabled(False)
+        self.pushButton.setText('停止')
+        self.running = True
+        self.textBrowser.appendPlainText("===静置等待中===")
+        self.TITLE = data['title']
+        self.comboBox.lineEdit().setText(data['title'])
+        self.update_commandline(data['case'])
+        self.radioButton_2.setChecked(True)
+        self.checkBox.setCheckState(bool(data['reboot']))
+        self.checkBox_2.setCheckState(bool(data['wait']))
+
+    def update_reboot_state(self, _bool):
+        self.reboot_now = _bool
+
+    def all_finished(self, _bool):
+        if _bool:
+            QMessageBox.information(self,                         #使用infomation信息框
+                "信息",
+                "所有用例执行完成，请到 %s 目录查看结果" % self.resultdir,
+                QMessageBox.Yes)
+
+    def rebootinit(self):
+        # 初始化重启环境
+        reboot_flag = self.homedir+'/.config/network_perf/enable-reboot'
+        if self.pushButton.text() != '开始':
+            return False
+        if self.checkBox.isChecked():
+            self.password = self.getPassword()
+            if not self.password:
+                return False
+
+            if not os.path.exists(reboot_flag):
+                os.system('touch %s' % reboot_flag)
+            # 设置开机启动
+            #TODO 拷贝.dekstop 到 .config/autostart
+            autostart = self.homedir + '/.config/autostart'
+            os.system('cp network-perf-tool.desktop %s' % autostart)
+            # 设置自动登录，无密码登录
+            import getpass
+            user = getpass.getuser()
+
+            #os.system('sudo dbus-send --system --dest=com.deepin.daemon.Accounts --print-reply /com/deepin/daemon/Accounts/User1000 com.deepin.daemon.Accounts.User.SetAutomaticLogin boolean:true')
+            #os.system('sudo dbus-send --system --dest=com.deepin.daemon.Accounts --print-reply /com/deepin/daemon/Accounts/User1000 com.deepin.daemon.Accounts.User.EnableNoPasswdLogin boolean:true')
+            os.system("""echo %s | sudo -S sh -c 'echo "autologin-user=%s" >> /usr/share/lightdm/lightdm.conf.d/01_debian.conf'""" %  (self.password, user))
+            os.system("rm -rf ~/.local/share/keyrings/")
+            return True
+        else:
+            os.system('rm %s >/dev/null  2>&1' % reboot_flag)
+            return True
+
+    def getPassword(self):
+        text, ok = QInputDialog.getText(None, "请输入密码", "密码?",
+                                        QLineEdit.Password)
+        if ok and text:
+            flag = os.system('echo ' + text + ' | sudo -S ls')
+            if flag != 0:
+                QMessageBox.warning(self,                         #使用infomation信息框
+                                    "警告",
+                                    "密码错误",
+                                    QMessageBox.Yes)
+                return False
+            return text
+
+    def onReadyReadStandardError(self):
+        error = self.process.readAllStandardError().data().decode()
+        self.textBrowser.appendPlainText(error.strip())
+
+    def onReadyReadStandardOutput(self):
+        result = self.process.readAllStandardOutput().data().decode()
+        self.textBrowser.appendPlainText(result.strip())
+
+    def onFinished(self, exitCode, exitStatus):
+        if exitStatus == 0:
+            self.textBrowser.appendPlainText("====测试结束====")
+            result = self.textBrowser.toPlainText()
+
+            title = 'unknown'
+            if self.sys_combo_text != None:
+                title = self.sys_combo_text.strip()
+            else:
+                title = self.TITLE.strip()
+
+            datetag = time.strftime("%Y-%m-%d_%H_%M_%S")
+            filename = title + datetag + '.log'
+            with open(self.resultdir + '/' + filename, 'w') as f:
+                f.write(result)
+            self.running = False
+            self.pushButton.setText('开始')
+
+            if self.reboot_now:
+                logger.info('开始重启')
+                os.system('sleep 5 && reboot')
+
+    def update_ipinfo(self, _ip):
+        # if '192.168' not in _ip:
+        #     self.label_4.setText("当前IP:<font color='red'> %s</font>" % _ip)
+        # else:
+        self.label_4.setText("当前IP:<font color='green'> %s</font>" % _ip)
+
+    # def continue_test(self):
+    #     # 判断是否重启后自动执行
+    #     true_cmd_file = self.homedir+'/.config/network_perf/wait_run_cmd'
+    #     if not os.path.exists(true_cmd_file):
+    #         return 0
+    #     with open(true_cmd_file, 'r') as f1:
+    #         cmds = f1.readlines()
+
+    #     if len(cmds) > 1:
+    #         first_cmd = cmds[0]
+    #     elif len(cmds) == 1:
+    #         first_cmd = cmds[0]
+    #     else:
+    #         return 0
+
+    #     REBOOT = first_cmd.split('|')[0]
+    #     WAIT = first_cmd.split('|')[1]
+    #     CASE = first_cmd.split('|')[2]
+    #     self.TITLE = first_cmd.split('|')[3]
+    #     if REBOOT == '1':
+    #         self.nextreboot = True
+    #     else:
+    #         self.nextreboot = False
+    #     if WAIT == '1':
+    #         self.wait = True
+    #     else:
+    #         self.wait = False
+
+    #     if self.wait:
+    #         self.run('sleep %s && %s' % (self.waittime,CASE))
+    #         # self.run(CASE)
+    #     else:
+    #         self.run('sleep 60 && %s' % CASE)
+    #         # self.run(CASE)
+
+    #     if len(cmds) > 1:
+    #         with open(true_cmd_file,'w') as f2:
+    #             for c in cmds[1:]:
+    #                 f2.write(c)
+
+    #         if self.nextreboot:
+    #             os.system('reboot')
+    #         else:
+    #             self.continue_test()
+    #     else:
+    #         try:
+    #             os.remove(true_cmd_file)
+    #             QMessageBox.information(self,                         #使用infomation信息框
+    #                                     "信息",
+    #                                     "所有用例执行完成，请到 %s 目录查看结果" % self.resultdir,
+    #                                     QMessageBox.Yes)
+    #         except OSError:
+    #             pass
+
+
+    def save_true_command(self):
+        # 保存批量执行用例
+        REBOOT = self.checkBox.isChecked()
+        WAIT = self.checkBox_2.isChecked()
+        CASELIST = []
+        true_cmd_file = self.homedir+'/.config/network_perf/wait_run_cmd'
+        if not os.path.exists(true_cmd_file):
+            os.system('touch %s' % true_cmd_file)
+
+        # for case in self.cases:
+        #     case_cmd = self.command_dict[case]['client']
+        #     CASELIST.append(case_cmd)
+
+        with open(true_cmd_file,'w') as f:
+            for case in self.cases:
+                f.write(str(int(REBOOT)) + '|' + str(int(WAIT)) + '|' + self.command_dict[case]['client'] + '|' + case + '\n')
+
+    def get_current_cmd(self):
+        true_cmd_file = self.homedir+'/.config/network_perf/wait_run_cmd'
+        with open(true_cmd_file, 'r') as f1:
+            cmds = f1.readlines()
+
+        cmd = cmds[0] #TODO
+
+        with open(true_cmd_file,'w') as f2:
+            for c in cmds[1:]:
+                f2.write(c)
+        return cmd
+
+    def setup_btn(self):
+        if self.pushButton.text() == '停止':
+            self.textBrowser.appendPlainText("====测试停止====")
+            self.stoptest()
+            self.running = False
+            self.pushButton.setText('开始')
+            return 0
+
+        if len(self.cases) == 0:
+            QMessageBox.warning(self,                         #使用infomation信息框
+                                    "警告",
+                                    "请选择测试用例",
+                                    QMessageBox.Yes)
+            return 0
+
+        if not self.rebootinit():
+            return 0
+
+        if self.lineEdit.text() == '':
+            command = self.lineEdit.placeholderText()
+            if command == '开启服务端':
+                self.open_multi_server()
+            elif command == '准备批量执行':
+                self.save_true_command()
+                #current_cmd = self.get_current_cmd()
+                #self.run(current_cmd)
+                # 重启判断
+                if self.checkBox.isChecked():
+                    os.system('sleep 5 && reboot')
+
+            elif len(self.cases) == 1:
+                self.run(command)
+            else:
+                print('command error:')
+                print(self.cases)
+        else:
+            command = self.lineEdit.text()
+            self.run(command)
+
+    def stoptest(self):
+        self.process.close()
+        true_cmd_file = self.homedir+'/.config/network_perf/wait_run_cmd'
+        try:
+            os.remove(true_cmd_file)
+        except OSError:
+            pass
+
+        try:
+            os.system('killall netserver')
+        except:
+            pass
+        try:
+            self.process_iperf.close()
+        except:
+            pass
+        try:
+            self.process_qperf.close()
+        except:
+            pass
+
+
+    def open_multi_server(self):
+        if not self.running:
+            self.pushButton.setDisabled(True)
+            self.textBrowser.clear()
+            self.textBrowser.appendPlainText('====服务端开启====\n')
+
+            self.process_iperf = QtCore.QProcess()
+            self.process_nperf = QtCore.QProcess()
+            self.process_qperf = QtCore.QProcess()
+            self.process_iperf.start('iperf3 -s')
+            self.process_nperf.start('netserver')
+            self.process_qperf.start('qperf')
+            self.pushButton.setDisabled(False)
+            self.pushButton.setText('停止')
+            self.running = True
+
+    def run(self, command, nobuffer=True):
+        """Executes a system command."""
+        self.pushButton.setDisabled(True)
+        # clear previous text
+        self.textBrowser.clear()
+        self.textBrowser.appendPlainText('====测试开始====\n')
+        self.textBrowser.appendPlainText(str(command) + '\n')
+
+        if nobuffer:
+            true_command = 'stdbuf -oL -eL ' + command
+            self.process.start(true_command)
+        else:
+            true_command = '/bin/sh -c "' + command + '"'
+            self.process.start(true_command)
+        self.pushButton.setDisabled(False)
+        self.pushButton.setText('停止')
+        self.running = True
+
+
+    def client_update(self):
+        # 解锁spin
+        self.spinBox.setDisabled(False)
+        self.checkBox.setChecked(True)
+        self.checkBox.setDisabled(False)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_2.setDisabled(False)
+
+        text,ok = QInputDialog.getText(self,'提示','服务器端ip')
+        if ok:
+            self.server_ip = text
+
+        self.update()
+
+    def update_command_dict(self):
+        self.command_dict = {
+            'UDP 协议网络传输平均延迟（qperf）' :{ 'server':'qperf', 'client':'qperf %s udp_lat' % self.server_ip},
+            'TCP 协议网络传输平均延迟（qperf）' :{ 'server':'qperf', 'client':'qperf %s tcp_lat' % self.server_ip},
+            'UDP传输速率（qperf）' :{ 'server':'qperf', 'client':'qperf %s udp_bw' % self.server_ip},
+            'TCP 传输速率（qperf）' :{ 'server':'qperf', 'client':'qperf %s tcp_bw' % self.server_ip},
+            'TCP 吞吐率(netperf)' :{ 'server':'netserver', 'client':'netperf -t TCP_STREAM -H %s -l 120' % self.server_ip},
+            'TCP 传输速度(netperf)' :{ 'server':'netserver', 'client':'netperf -t TCP_RR -H %s -l 120' % self.server_ip},
+            'TCP 多链接速度 TCP_CRR(netperf)' :{ 'server':'netserver', 'client':'netperf -t TCP_CRR -H %s -l 120'  % self.server_ip},
+            'UDP 带宽测试(netperf)' :{ 'server':'netserver', 'client':'netperf -t UDP_STREAM -H %s -l 120' % self.server_ip},
+            'UDP 传输速度(netperf)' :{ 'server':'netserver', 'client':'netperf -t UDP_RR -H %s -l 120' % self.server_ip},
+            'TCP 协议网络传输平均延迟(netperf)' :{ 'server':'netserver', 'client':'netperf -H %s -t TCP_STREAM ---d rr -O "THROUGHPUT, THROUGHPUT_UNITS, MIN_LATENCY, MAX_LATENCY, MEAN_LATENCY"' % self.server_ip},
+            'UDP 协议网络传输平均延迟(netperf)' :{ 'server':'netserver', 'client':'netperf -H %s -t UDP_STREAM ---d rr -O "THROUGHPUT, THROUGHPUT_UNITS, MIN_LATENCY, MAX_LATENCY, MEAN_LATENCY"' % self.server_ip},
+            'TCP 传输速度(iperf)' :{ 'server':'iperf3 -s', 'client':'iperf3 -c %s -t 600 -b 1G' % self.server_ip},
+            'UDP 传输速度(iperf)' :{ 'server':'iperf3 -s', 'client':'iperf3 -c %s -u -t 600 -b 1G' % self.server_ip},
+        }
+
+    def get_cases(self):
+        self.cases = self.comboBox.currentData()
+        if len(self.cases) == 1:
+            return self.cases[0]
+        else:
+            return None
+
+
+    def update(self):
+        self.lineEdit.clear()
+        # 锁定spin
+        if self.radioButton.isChecked():
+            self.spinBox.setDisabled(True)
+            self.checkBox.setChecked(False)
+            self.checkBox.setDisabled(True)
+            self.checkBox_2.setChecked(False)
+            self.checkBox_2.setDisabled(True)
+
+        self.update_command_dict()
+        self.sys_combo_text = self.get_cases()
+
+        if self.radioButton.isChecked():
+            # 服务端
+            if self.sys_combo_text is not None:
+                self.update_commandline(self.command_dict[self.sys_combo_text]['server'])
+            else:
+                self.update_commandline('开启服务端')
+
+        else:
+            # 客户端
+            if self.sys_combo_text is not None:
+                self.update_commandline(self.command_dict[self.sys_combo_text]['client'])
+            else:
+                self.update_commandline('准备批量执行')
+
+
+    def update_commandline(self, default_command):
+        self.lineEdit.setPlaceholderText(default_command)
+
+    def closeEvent(self, event):
+        self.stoptest()
+        self.thread_init.quit()
+        self.thread_init.wait()
+
+if __name__ == '__main__':
+    app=QApplication(sys.argv)
+    win=Service_setup()
+    win.show()
+    sys.exit(app.exec_())
