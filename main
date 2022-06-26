@@ -18,7 +18,7 @@ from PyQt5.QtWidgets import (QApplication,
                             QDialog,
                             QInputDialog,
                             QLineEdit)
-from PyQt5.QtCore import QStringListModel,QThread
+from PyQt5.QtCore import QStringListModel,QThread,QTimer
 from PyQt5 import QtCore
 import time
 from io import StringIO
@@ -242,7 +242,22 @@ class Service_setup(QWidget, Ui_Form):
         self.thread_continue.reboot_signal.connect(self.update_reboot_state)
         self.thread_continue.start()
         self.TITLE = ''
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.showtime)
+
         # self.continue_test()
+
+    def showtime(self):
+        self.time -= 1
+        self.textBrowser.appendPlainText("(%s)秒钟后reboot" % (self.time))
+        if self.time == 0:
+            self.endtimer()
+
+    def starttimer(self):
+        self.timer.start(1000)
+
+    def endtimer(self):
+        self.timer.stop()
 
     def initUI(self,data):
         self.pushButton.setDisabled(False)
@@ -281,7 +296,7 @@ class Service_setup(QWidget, Ui_Form):
             # 设置开机启动
             #TODO 拷贝.dekstop 到 .config/autostart
             autostart = self.homedir + '/.config/autostart'
-            os.system('cp network-perf-tool.desktop %s' % autostart)
+            os.system('cp /usr/share/applications/network-perf-tool.desktop %s' % autostart)
             # 设置自动登录，无密码登录
             import getpass
             user = getpass.getuser()
@@ -336,7 +351,9 @@ class Service_setup(QWidget, Ui_Form):
 
             if self.reboot_now:
                 logger.info('开始重启')
-                os.system('sleep 5 && reboot')
+                self.time = 10
+                self.starttimer()
+                os.system('reboot')
 
     def update_ipinfo(self, _ip):
         # if '192.168' not in _ip:
@@ -456,7 +473,10 @@ class Service_setup(QWidget, Ui_Form):
                 #self.run(current_cmd)
                 # 重启判断
                 if self.checkBox.isChecked():
-                    os.system('sleep 5 && reboot')
+                    print('reboot')
+                    self.time = 10
+                    self.starttimer()
+                    #os.system('reboot')
 
             elif len(self.cases) == 1:
                 self.run(command)
