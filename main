@@ -258,6 +258,10 @@ class Service_setup(QWidget, Ui_Form):
 
     def endtimer(self):
         self.timer.stop()
+        self._reboot()
+
+    def _reboot(self):
+        os.system('reboot')
 
     def initUI(self,data):
         self.pushButton.setDisabled(False)
@@ -353,7 +357,6 @@ class Service_setup(QWidget, Ui_Form):
                 logger.info('开始重启')
                 self.time = 10
                 self.starttimer()
-                os.system('reboot')
 
     def update_ipinfo(self, _ip):
         # if '192.168' not in _ip:
@@ -475,7 +478,6 @@ class Service_setup(QWidget, Ui_Form):
                 if self.checkBox.isChecked():
                     self.time = 10
                     self.starttimer()
-                    os.system('reboot')
 
             elif len(self.cases) == 1:
                 self.run(command)
