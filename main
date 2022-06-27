@@ -142,8 +142,8 @@ class Check_continue(QThread):
         UI = {
             "title" : self.TITLE,
             "case" : CASE,
-            "reboot" : REBOOT,
-            "wait" : WAIT
+            "reboot" : int(REBOOT),
+            "wait" : int(WAIT)
         }
         logger.info('渲染UI')
         self.randerUI.emit(UI)
@@ -272,8 +272,8 @@ class Service_setup(QWidget, Ui_Form):
         self.comboBox.lineEdit().setText(data['title'])
         self.update_commandline(data['case'])
         self.radioButton_2.setChecked(True)
-        self.checkBox.setCheckState(bool(data['reboot']))
-        self.checkBox_2.setCheckState(bool(data['wait']))
+        self.checkBox.setChecked(bool(data['reboot']))
+        self.checkBox_2.setChecked(bool(data['wait']))
 
     def update_reboot_state(self, _bool):
         self.reboot_now = _bool
@@ -432,9 +432,13 @@ class Service_setup(QWidget, Ui_Form):
         #     case_cmd = self.command_dict[case]['client']
         #     CASELIST.append(case_cmd)
 
+        times = self.spinBox.text()
+        print(times)
+
         with open(true_cmd_file,'w') as f:
-            for case in self.cases:
-                f.write(str(int(REBOOT)) + '|' + str(int(WAIT)) + '|' + self.command_dict[case]['client'] + '|' + case + '\n')
+            for i in range(int(times)):
+                for case in self.cases:
+                    f.write(str(int(REBOOT)) + '|' + str(int(WAIT)) + '|' + self.command_dict[case]['client'] + '|' + case + '\n')
 
     def get_current_cmd(self):
         true_cmd_file = self.homedir+'/.config/network_perf/wait_run_cmd'
@@ -454,6 +458,7 @@ class Service_setup(QWidget, Ui_Form):
             self.stoptest()
             self.running = False
             self.pushButton.setText('开始')
+            self.spinBox.setValue(1)
             return 0
 
         if len(self.cases) == 0:
@@ -463,6 +468,7 @@ class Service_setup(QWidget, Ui_Form):
                                     QMessageBox.Yes)
             return 0
 
+        # if self.checkBox.isChecked():
         if not self.rebootinit():
             return 0
 
@@ -478,6 +484,8 @@ class Service_setup(QWidget, Ui_Form):
                 if self.checkBox.isChecked():
                     self.time = 10
                     self.starttimer()
+                else:
+                    self.thread_continue.start()
 
             elif len(self.cases) == 1:
                 self.run(command)
