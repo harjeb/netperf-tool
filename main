@@ -99,7 +99,7 @@ class Get_IP(QThread):
     def run(self):
         first_ip = 'Null'
         try:
-            r,ip = cmd('hostname -I')
+            ip = cmd('hostname -I')
             first_ip = ip.split(' ')[0]
         except:
             pass
