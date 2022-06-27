@@ -473,10 +473,9 @@ class Service_setup(QWidget, Ui_Form):
                 #self.run(current_cmd)
                 # 重启判断
                 if self.checkBox.isChecked():
-                    print('reboot')
                     self.time = 10
                     self.starttimer()
-                    #os.system('reboot')
+                    os.system('reboot')
 
             elif len(self.cases) == 1:
                 self.run(command)
