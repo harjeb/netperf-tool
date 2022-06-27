@@ -1,16 +1,10 @@
-from invoke import Responder
-import invoke
-from invoke import run
-import logging
-import time
-import os
-
+import subprocess
 
 def cmd(command):
     try:
-        f = run(command,pty=False)
-        return f.ok,f.stdout+f.stderr
-    except invoke.exceptions.UnexpectedExit as e:
-        logging.error('命令错误 %s' % e)
+        f = subprocess.getoutput(command)
+        return f
+    except Exception as e:
+        print('命令错误 %s' % e)
         # 命令错误也会返回错误信息
-        return False,e.result.stdout+e.result.stderr
+        return False
