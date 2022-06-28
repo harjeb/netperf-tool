@@ -111,6 +111,7 @@ class Check_continue(QThread):
     cmd = QtCore.pyqtSignal(str)
     randerUI = QtCore.pyqtSignal(dict)
     reboot_signal = QtCore.pyqtSignal(bool)
+    wait_finish = QtCore.pyqtSignal(bool)
 
     def __init__(self):
         super(Check_continue, self).__init__()
@@ -183,10 +184,10 @@ class Check_continue(QThread):
                 self.quit()
             else:
                 logger.info('不需要重启，继续测试...')
-                self.run()
+                self.wait_finish.emit(True)
         else:
             try:
-                logger.info('执行完成！')
+                logger.info('马上执行完成！')
                 os.remove(true_cmd_file)
                 self.end.emit(True)
             except OSError:
@@ -240,10 +241,12 @@ class Service_setup(QWidget, Ui_Form):
         self.thread_continue.end.connect(self.all_finished)
         self.thread_continue.randerUI.connect(self.initUI)
         self.thread_continue.reboot_signal.connect(self.update_reboot_state)
+        self.thread_continue.wait_finish.connect(self.single_end)
         self.thread_continue.start()
         self.TITLE = ''
         self.timer = QTimer()
         self.timer.timeout.connect(self.showtime)
+        self.all_finish = False
 
         # self.continue_test()
 
@@ -263,11 +266,14 @@ class Service_setup(QWidget, Ui_Form):
     def _reboot(self):
         os.system('reboot')
 
+    def single_end(self):
+        self._single_end = True
+
     def initUI(self,data):
         self.pushButton.setDisabled(False)
         self.pushButton.setText('停止')
         self.running = True
-        self.textBrowser.appendPlainText("===静置等待中===")
+        #self.textBrowser.clear()
         self.TITLE = data['title']
         self.comboBox.lineEdit().setText(data['title'])
         self.update_commandline(data['case'])
@@ -279,11 +285,7 @@ class Service_setup(QWidget, Ui_Form):
         self.reboot_now = _bool
 
     def all_finished(self, _bool):
-        if _bool:
-            QMessageBox.information(self,                         #使用infomation信息框
-                "信息",
-                "所有用例执行完成，请到 %s 目录查看结果" % self.resultdir,
-                QMessageBox.Yes)
+        self.all_finish = True
 
     def rebootinit(self):
         # 初始化重启环境
@@ -332,11 +334,12 @@ class Service_setup(QWidget, Ui_Form):
         self.textBrowser.appendPlainText(error.strip())
 
     def onReadyReadStandardOutput(self):
-        result = self.process.readAllStandardOutput().data().decode()
-        self.textBrowser.appendPlainText(result.strip())
+        cmd_result = self.process.readAllStandardOutput().data().decode()
+        self.textBrowser.appendPlainText(cmd_result.strip())
 
     def onFinished(self, exitCode, exitStatus):
         if exitStatus == 0:
+            self.textBrowser.appendPlainText("-----")
             self.textBrowser.appendPlainText("====测试结束====")
             result = self.textBrowser.toPlainText()
 
@@ -350,6 +353,21 @@ class Service_setup(QWidget, Ui_Form):
             filename = title + datetag + '.log'
             with open(self.resultdir + '/' + filename, 'w') as f:
                 f.write(result)
+
+            performace_auto_case = ["TCP 吞吐率(netperf)", "TCP 传输速度(netperf)", "TCP 多链接速度 TCP_CRR(netperf)", "UDP 带宽测试(netperf)", "UDP 传输速度(netperf)"]
+
+            cmd_result = result.split("-----")[1]
+
+            try:
+                netperf_file = self.resultdir + '/netperf.txt'
+                if not os.path.exists(netperf_file):
+                    os.system("touch %s" % netperf_file)
+                if title in performace_auto_case:
+                    with open(netperf_file, 'a') as f:
+                        f.write(cmd_result)
+            except:
+                logger.error('保存微观数据失败')
+
             self.running = False
             self.pushButton.setText('开始')
 
@@ -357,6 +375,17 @@ class Service_setup(QWidget, Ui_Form):
                 logger.info('开始重启')
                 self.time = 10
                 self.starttimer()
+
+            if self._single_end:
+                logger.info('开始下一个')
+                self.thread_continue.start()
+
+            if self.all_finish:
+                self.comboBox.clear()
+                QMessageBox.information(self,                         #使用infomation信息框
+                        "信息",
+                        "所有用例执行完成，请到 %s 目录查看结果" % self.resultdir,
+                        QMessageBox.Yes)
 
     def update_ipinfo(self, _ip):
         # if '192.168' not in _ip:
@@ -440,18 +469,6 @@ class Service_setup(QWidget, Ui_Form):
                 for case in self.cases:
                     f.write(str(int(REBOOT)) + '|' + str(int(WAIT)) + '|' + self.command_dict[case]['client'] + '|' + case + '\n')
 
-    def get_current_cmd(self):
-        true_cmd_file = self.homedir+'/.config/network_perf/wait_run_cmd'
-        with open(true_cmd_file, 'r') as f1:
-            cmds = f1.readlines()
-
-        cmd = cmds[0] #TODO
-
-        with open(true_cmd_file,'w') as f2:
-            for c in cmds[1:]:
-                f2.write(c)
-        return cmd
-
     def setup_btn(self):
         if self.pushButton.text() == '停止':
             self.textBrowser.appendPlainText("====测试停止====")
@@ -478,8 +495,6 @@ class Service_setup(QWidget, Ui_Form):
                 self.open_multi_server()
             elif command == '准备批量执行':
                 self.save_true_command()
-                #current_cmd = self.get_current_cmd()
-                #self.run(current_cmd)
                 # 重启判断
                 if self.checkBox.isChecked():
                     self.time = 10
@@ -541,7 +556,7 @@ class Service_setup(QWidget, Ui_Form):
         self.textBrowser.clear()
         self.textBrowser.appendPlainText('====测试开始====\n')
         self.textBrowser.appendPlainText(str(command) + '\n')
-
+        self.textBrowser.appendPlainText("-----"+ '\n')
         if nobuffer:
             true_command = 'stdbuf -oL -eL ' + command
             self.process.start(true_command)
@@ -578,8 +593,8 @@ class Service_setup(QWidget, Ui_Form):
             'TCP 多链接速度 TCP_CRR(netperf)' :{ 'server':'netserver', 'client':'netperf -t TCP_CRR -H %s -l 120'  % self.server_ip},
             'UDP 带宽测试(netperf)' :{ 'server':'netserver', 'client':'netperf -t UDP_STREAM -H %s -l 120' % self.server_ip},
             'UDP 传输速度(netperf)' :{ 'server':'netserver', 'client':'netperf -t UDP_RR -H %s -l 120' % self.server_ip},
-            'TCP 协议网络传输平均延迟(netperf)' :{ 'server':'netserver', 'client':'netperf -H %s -t TCP_STREAM ---d rr -O "THROUGHPUT, THROUGHPUT_UNITS, MIN_LATENCY, MAX_LATENCY, MEAN_LATENCY"' % self.server_ip},
-            'UDP 协议网络传输平均延迟(netperf)' :{ 'server':'netserver', 'client':'netperf -H %s -t UDP_STREAM ---d rr -O "THROUGHPUT, THROUGHPUT_UNITS, MIN_LATENCY, MAX_LATENCY, MEAN_LATENCY"' % self.server_ip},
+            'TCP 协议网络传输平均延迟(netperf)' :{ 'server':'netserver', 'client':'netperf -H %s -t TCP_STREAM rr -O "THROUGHPUT, THROUGHPUT_UNITS, MIN_LATENCY, MAX_LATENCY, MEAN_LATENCY"' % self.server_ip},
+            'UDP 协议网络传输平均延迟(netperf)' :{ 'server':'netserver', 'client':'netperf -H %s -t UDP_STREAM rr -O "THROUGHPUT, THROUGHPUT_UNITS, MIN_LATENCY, MAX_LATENCY, MEAN_LATENCY"' % self.server_ip},
             'TCP 传输速度(iperf)' :{ 'server':'iperf3 -s', 'client':'iperf3 -c %s -t 600 -b 1G' % self.server_ip},
             'UDP 传输速度(iperf)' :{ 'server':'iperf3 -s', 'client':'iperf3 -c %s -u -t 600 -b 1G' % self.server_ip},
         }
